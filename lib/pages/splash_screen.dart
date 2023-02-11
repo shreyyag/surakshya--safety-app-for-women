@@ -27,15 +27,19 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color.fromARGB(255, 126, 244, 130),
-        child: Center(
-          child: Text('Surakshya',
-              style: TextStyle(
-                  fontSize: 38,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white)),
+        width: MediaQuery.of(context).size.width,
+        color: Color.fromARGB(255, 111, 185, 115),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/splash.png', height: 160,width: 150,),
+            Text('Surakshya',
+                style: TextStyle(
+                    fontSize: 38,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white)),
+          ],
         ),
-      ),
-    );
+      ),);
   }
 }

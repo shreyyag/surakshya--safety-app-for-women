@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'live_locations/busstationCard.dart';
 import 'live_locations/hospitalCard.dart';
 import 'live_locations/pharmacyCard.dart';
