@@ -46,7 +46,7 @@ class _EmergencyAlarmState extends State<EmergencyAlarm> {
                   radius: 30,
                   child: IconButton(
                     icon: Icon(
-                        isplaying ? Icons.stop : Icons.play_arrow
+                        isplaying ? Icons.stop : Icons.play_arrow,
                     ),
                     iconSize: 33,
                     onPressed: (){

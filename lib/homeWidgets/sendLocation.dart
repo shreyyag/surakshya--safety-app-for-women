@@ -6,6 +6,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:surakshya/components/primary_button.dart';
+import 'package:surakshya/db/db_services.dart';
+import 'package:surakshya/utils/contactsm.dart';
 
 class SendLocation extends StatefulWidget {
   @override
@@ -27,7 +29,7 @@ class _SendLocationState extends State<SendLocation> {
             phoneNumber: phoneNumber, message: message, simSlot: simSlot)
         .then((SmsStatus status) {
       if (status == "sent") {
-        Fluttertoast.showToast(msg: "sent");
+        Fluttertoast.showToast(msg: "Sent");
       } else {
         Fluttertoast.showToast(msg: "Failed");
       }
@@ -46,6 +48,7 @@ class _SendLocationState extends State<SendLocation> {
     }
     Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.high,
+            //foreground location tracking
             forceAndroidLocationManager: true)
         .then((Position position) {
       setState(() {
@@ -57,6 +60,7 @@ class _SendLocationState extends State<SendLocation> {
     });
   }
 
+  //to get current location
   _getAddressFromLatLon() async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(
@@ -64,7 +68,7 @@ class _SendLocationState extends State<SendLocation> {
       Placemark place = placemarks[0];
       setState(() {
         _currentAddress =
-            "${place.locality},${place.postalCode},${place.street}";
+            "${place.subLocality}, ${place.subAdministrativeArea},${place.name},${place.postalCode},${place.street}";
       });
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
@@ -74,6 +78,7 @@ class _SendLocationState extends State<SendLocation> {
   @override
   void initState() {
     super.initState();
+    _getPermission();
     _getCurrentLocation();
   }
 
@@ -87,20 +92,55 @@ class _SendLocationState extends State<SendLocation> {
               padding: const EdgeInsets.all(14.0),
               child: Column(
                 children: [
+                  SizedBox(
+                    height: 20,
+                  ),
                   Text(
                     "SEND YOUR CURRENT LOCATION TO YOUR EMERGENCY CONTACT.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20, color: Colors.green),
                   ),
+                  Image.asset('assets/images/sendloaction.png',
+                      height: 160, width: 230),
                   SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
-                  if (_currentPosition != null) Text(_currentAddress!),
-                  PrimaryButton(btnTitle: "Get Location", onPressed: () {}),
+                  if (_currentPosition != null)
+                    Text('Your Location: $_currentAddress!'),
+                  PrimaryButton(
+                      btnTitle: "Reload Location",
+                      onPressed: () {
+                        _getCurrentLocation();
+                      }),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
-                  PrimaryButton(btnTitle: "Send SMS", onPressed: () {})
+                  PrimaryButton(
+                      btnTitle: "Send SMS",
+                      onPressed: () async {
+                        List<TContact> contactList =
+                            await DbHelper().getContactList();
+                        String recipients = "";
+                        int i = 1;
+                        for (TContact contact in contactList) {
+                          recipients += contact.number;
+                          if (i != contactList.length) {
+                            recipients += ";";
+                            i++;
+                          }
+                        }
+                        String messageBody =
+                            "https://www.google.com/maps/search/?api=1&query=${_currentPosition!.latitude}%2C${_currentPosition!.longitude}.{$_currentAddress}";
+                        if (await _isPermissionGranted()) {
+                          contactList.forEach((element) {
+                            _sendSms("${element.number}",
+                                "HELP! I'm in trouble, please reach me out at $messageBody",
+                                simSlot: 1);
+                          });
+                        } else {
+                          Fluttertoast.showToast(msg: "Something went wrong!");
+                        }
+                      })
                 ],
               ),
             ),
@@ -139,6 +179,7 @@ class _SendLocationState extends State<SendLocation> {
           ]),
         ),
       ),
+      onTap: () => showModelSafeHome(context),
     );
   }
 }
