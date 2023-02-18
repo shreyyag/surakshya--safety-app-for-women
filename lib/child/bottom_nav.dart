@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:surakshya/child/bottom_screens/add_contacts.dart';
 import 'package:surakshya/child/bottom_screens/chat_screen.dart';
 import 'package:surakshya/child/bottom_screens/contacts_screen.dart';
 import 'package:surakshya/child/bottom_screens/home_screen.dart';
 
 class BottomNav extends StatefulWidget {
-  const BottomNav({Key? key}) : super(key: key);
+  final token;
+  const BottomNav({@required this.token, Key? key}) : super(key: key);
 
   @override
   State<BottomNav> createState() => _BottomNavState();
 }
 
 class _BottomNavState extends State<BottomNav> {
+  late String email;
+
   int currentIndex = 0;
   List<Widget> pages = [
     HomeScreen(),
@@ -22,6 +26,14 @@ class _BottomNavState extends State<BottomNav> {
     setState(() {
       currentIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Map<String, dynamic> jwtDecodedToken = JwtDecoder.decode(widget.token);
+
+    email = jwtDecodedToken['email'];
   }
 
   @override

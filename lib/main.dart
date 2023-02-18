@@ -1,13 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:surakshya/components/custom_textfield.dart';
 import 'package:surakshya/components/secondary_button.dart';
+import 'package:surakshya/config.dart';
 import 'package:surakshya/pages/register_user.dart';
 import 'package:surakshya/pages/splash_screen.dart';
 import 'child/bottom_nav.dart';
+import 'package:http/http.dart' as http;
 import 'components/primary_button.dart';
 import 'child/bottom_screens/home_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 
@@ -33,6 +41,43 @@ class LoginOptions extends StatefulWidget {
 class LoginOptionsState extends State<LoginOptions> {
   //defining controllers
   bool isPasswordShown = true;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  late SharedPreferences prefs;
+
+  @override
+  void initState() {
+    super.initState();
+    initSharedPref();
+  }
+
+  void initSharedPref() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  void loginUser() async {
+    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+      var reqBody = {
+        "email": emailController.text,
+        "password": passwordController.text
+      };
+
+      var response = await http.post(Uri.parse(login),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(reqBody));
+      var jsonResponse = jsonDecode(response.body);
+      if (jsonResponse['status']) {
+        //Saving token in shared preference
+        var myToken = jsonResponse['token'];
+        prefs.setString("token", myToken);
+        Fluttertoast.showToast(msg: "Loging in");
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BottomNav(token: myToken)));
+      } else {
+        Fluttertoast.showToast(msg: "Something went wrong!");
+      }
+    }
+  }
 
   @override
   // ignore: dead_code
@@ -60,9 +105,10 @@ class LoginOptionsState extends State<LoginOptions> {
                 ),
                 SizedBox(height: 18),
                 CustomTextField(
-                  hintText: "Number",
+                  controller: emailController,
+                  hintText: "Email",
                   textInputAction: TextInputAction.next,
-                  keyboardtype: TextInputType.number,
+                  keyboardtype: TextInputType.emailAddress,
                   prefix: Icon(Icons.woman),
                   validate: (number) {
                     if (number!.isEmpty || number.length < 10) {
@@ -73,6 +119,7 @@ class LoginOptionsState extends State<LoginOptions> {
                 ),
                 SizedBox(height: 18),
                 CustomTextField(
+                  controller: passwordController,
                   hintText: "Password",
                   prefix: Icon(Icons.zoom_in_rounded),
                   isPassword: isPasswordShown,
@@ -96,18 +143,11 @@ class LoginOptionsState extends State<LoginOptions> {
                 PrimaryButton(
                   btnTitle: "LOGIN",
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => BottomNav()));
+                    loginUser();
                   },
-                  // onPressed: () {
-                  //   if (_formKey.currentState!.validate()) {
-                  //     _onSubmit();
-                  //   }
-                  // }
                 ),
-                SizedBox(height: 5),
-                SecondaryButton(title: "Forgot Password", onPressed: () {}),
-                SizedBox(height: 30),
+
+                SizedBox(height: 40),
                 Text(
                   "Don't have an account?",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),

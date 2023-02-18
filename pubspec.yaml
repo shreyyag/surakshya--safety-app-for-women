@@ -46,7 +46,8 @@ dependencies:
   geocoding: ^2.0.5
   audioplayers: ^1.1.1
   http: ^0.13.5
-
+  jwt_decoder: ^2.0.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
