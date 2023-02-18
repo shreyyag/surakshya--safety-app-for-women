@@ -3,7 +3,6 @@ import 'package:surakshya/components/custom_textfield.dart';
 import 'package:surakshya/components/secondary_button.dart';
 import 'package:surakshya/pages/register_user.dart';
 import 'package:surakshya/pages/splash_screen.dart';
-
 import 'child/bottom_nav.dart';
 import 'components/primary_button.dart';
 import 'child/bottom_screens/home_screen.dart';
@@ -34,14 +33,6 @@ class LoginOptions extends StatefulWidget {
 class LoginOptionsState extends State<LoginOptions> {
   //defining controllers
   bool isPasswordShown = true;
-  final _formKey = GlobalKey<FormState>();
-  final _formData = Map<String, Object>();
-
-  _onSubmit() {
-    _formKey.currentState!.save();
-    print(_formData['number']);
-    print(_formData['password']);
-  }
 
   @override
   // ignore: dead_code
@@ -49,7 +40,6 @@ class LoginOptionsState extends State<LoginOptions> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
-          key: _formKey,
           child: Container(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -74,9 +64,6 @@ class LoginOptionsState extends State<LoginOptions> {
                   textInputAction: TextInputAction.next,
                   keyboardtype: TextInputType.number,
                   prefix: Icon(Icons.woman),
-                  onsave: (number) {
-                    _formData['number'] = number ?? "";
-                  },
                   validate: (number) {
                     if (number!.isEmpty || number.length < 10) {
                       return 'Enter correct number';
@@ -103,9 +90,6 @@ class LoginOptionsState extends State<LoginOptions> {
                       return 'Enter correct password.';
                     }
                     return null;
-                  },
-                  onsave: (password) {
-                    _formData['password'] = password ?? "";
                   },
                 ),
                 SizedBox(height: 20),

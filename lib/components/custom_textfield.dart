@@ -4,7 +4,6 @@ class CustomTextField extends StatelessWidget {
   final String? hintText;
   final TextEditingController? controller;
   final String? Function(String?)? validate;
-  final Function(String?)? onsave;
   final int? maxLines;
   final bool isPassword;
   final bool? check;
@@ -18,7 +17,6 @@ class CustomTextField extends StatelessWidget {
   CustomTextField(
       {this.controller,
       this.validate,
-      this.onsave,
       this.maxLines,
       this.isPassword = false,
       this.enable = true,
@@ -35,7 +33,6 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       enabled: enable == true ? true : enable,
       maxLines: maxLines == null ? 1 : maxLines,
-      onSaved: onsave,
       focusNode: focusNode,
       textInputAction: textInputAction,
       keyboardType: keyboardtype == null ? TextInputType.name : keyboardtype,
