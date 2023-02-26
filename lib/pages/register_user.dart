@@ -15,27 +15,39 @@ class RegisterUser extends StatefulWidget {
 
 class _RegisterUserState extends State<RegisterUser> {
   bool isPasswordShown = true;
+  //textfield controllers
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController gemailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  String? _selectedVal = "user";
+
+  //list in dropdown
+  List<String> role = ['user', 'parent'];
+
+  _MyFormState() {
+    _selectedVal = role[0];
+  }
+
+  //function to register user
   void registerUser() async {
     if (nameController.text.isNotEmpty &&
         emailController.text.isNotEmpty &&
-        gemailController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty) {
+        passwordController.text.isNotEmpty &&
+        _selectedVal == _selectedVal) {
       var regBody = {
         "name": nameController.text,
         "email": emailController.text,
-        "guardianEmail": gemailController.text,
-        "password": passwordController.text
+        "password": passwordController.text,
+        "role": _selectedVal
       };
       var response = await http.post(Uri.parse(registration),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(regBody));
       var jsonResponse = jsonDecode(response.body);
-      print(jsonResponse['status']);
+      // print(jsonResponse['status']);
       if (jsonResponse['status']) {
+        CircularProgressIndicator();
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginOptions()));
         Fluttertoast.showToast(msg: "User registered successfully");
@@ -59,7 +71,7 @@ class _RegisterUserState extends State<RegisterUser> {
           child: Column(children: [
             Image.asset('assets/images/woman.jpg', height: 250),
             Text(
-              "Register as User",
+              "Register Here",
               style: TextStyle(
                   fontSize: 30,
                   color: Colors.green,
@@ -71,6 +83,32 @@ class _RegisterUserState extends State<RegisterUser> {
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w200),
             ),
             SizedBox(height: 18),
+            Container(
+              width: 300,
+              child: Row(children: [
+                Text(
+                  "Please specify user type:         ",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.green),
+                ),
+                DropdownButton(
+                    value: _selectedVal,
+                    items: role
+                        .map((e) => DropdownMenuItem(
+                              child: Text(e),
+                              value: e,
+                            ))
+                        .toList(),
+                    onChanged: (val) {
+                      setState(() {
+                        _selectedVal = val as String;
+                      });
+                    }),
+              ]),
+            ),
+            SizedBox(height: 15),
             CustomTextField(
               controller: nameController,
               hintText: "Name",
@@ -101,22 +139,6 @@ class _RegisterUserState extends State<RegisterUser> {
             ),
             SizedBox(height: 18),
             CustomTextField(
-              controller: gemailController,
-              hintText: "Guardian's email",
-              prefix: Icon(Icons.key),
-              textInputAction: TextInputAction.next,
-              keyboardtype: TextInputType.emailAddress,
-              validate: (gemail) {
-                if (gemail!.isEmpty ||
-                    gemail.length < 3 ||
-                    !gemail.contains("@")) {
-                  return 'Enter correct email.';
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: 18),
-            CustomTextField(
               controller: passwordController,
               hintText: "Password",
               isPassword: isPasswordShown,
@@ -139,7 +161,11 @@ class _RegisterUserState extends State<RegisterUser> {
             ),
             SizedBox(height: 18),
             PrimaryButton(btnTitle: "REGISTER", onPressed: registerUser),
-            SizedBox(height: 5),
+            SizedBox(height: 25),
+            Text(
+              "Already have an account?",
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+            ),
             TextButton(
                 onPressed: () {
                   Navigator.push(context,

@@ -47,6 +47,8 @@ dependencies:
   audioplayers: ^1.1.1
   http: ^0.13.5
   jwt_decoder: ^2.0.1
+  redux: ^5.0.0
+  flutter_redux: ^0.10.0
   
 dev_dependencies:
   flutter_test:

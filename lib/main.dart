@@ -8,14 +8,15 @@ import 'package:surakshya/components/secondary_button.dart';
 import 'package:surakshya/config.dart';
 import 'package:surakshya/pages/register_user.dart';
 import 'package:surakshya/pages/splash_screen.dart';
+import 'package:surakshya/parent/homeParent.dart';
 import 'child/bottom_nav.dart';
 import 'package:http/http.dart' as http;
 import 'components/primary_button.dart';
 import 'child/bottom_screens/home_screen.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 
@@ -59,7 +60,7 @@ class LoginOptionsState extends State<LoginOptions> {
     if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
       var reqBody = {
         "email": emailController.text,
-        "password": passwordController.text
+        "password": passwordController.text,
       };
 
       var response = await http.post(Uri.parse(login),
@@ -69,10 +70,21 @@ class LoginOptionsState extends State<LoginOptions> {
       if (jsonResponse['status']) {
         //Saving token in shared preference
         var myToken = jsonResponse['token'];
+        var userRole = jsonResponse['role'];
+
         prefs.setString("token", myToken);
+        prefs.setString("role", userRole);
         Fluttertoast.showToast(msg: "Loging in");
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => BottomNav(token: myToken)));
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (context) => BottomNav(token: myToken)));
+        if (userRole == "user") {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => BottomNav()));
+        } else if (userRole == "parent") {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ParentHomePage()));
+        } else
+          () {};
       } else {
         Fluttertoast.showToast(msg: "Something went wrong!");
       }
@@ -92,7 +104,7 @@ class LoginOptionsState extends State<LoginOptions> {
                 Image.asset('assets/images/woman.jpg', height: 280),
                 SizedBox(height: 40),
                 Text(
-                  "USER LOGIN",
+                  "LOGIN",
                   style: TextStyle(
                       fontSize: 40,
                       color: Colors.green,
@@ -144,9 +156,10 @@ class LoginOptionsState extends State<LoginOptions> {
                   btnTitle: "LOGIN",
                   onPressed: () {
                     loginUser();
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => BottomNav()));
                   },
                 ),
-
                 SizedBox(height: 40),
                 Text(
                   "Don't have an account?",
