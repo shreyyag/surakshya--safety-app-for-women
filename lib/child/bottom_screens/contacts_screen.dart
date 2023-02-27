@@ -2,6 +2,7 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:surakshya/child/bottom_screens/add_contacts.dart';
 import 'package:surakshya/db/db_services.dart';
 
 import '../../utils/constants.dart';
@@ -160,7 +161,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                             msg:
                                                 "Sorry! phone number of this contact does not exist.");
                                       }
-                                      Navigator.of(context).pop();
+                                      // Navigator.of(context).pop();
                                     },
                                   );
                                 }),
@@ -176,10 +177,12 @@ class _ContactsScreenState extends State<ContactsScreen> {
   void _addContact(TContact newContact) async {
     int result = await _databaseHelper.insertContact(newContact);
     if (result != 0) {
-      Fluttertoast.showToast(msg: "Emergenct contact added successfully");
+      Fluttertoast.showToast(msg: "Emergency contact added successfully");
     } else {
       Fluttertoast.showToast(msg: "Failed to add contact.");
     }
     Navigator.of(context).pop(true);
+    // Navigator.push(
+    //     context, MaterialPageRoute(builder: (context) => AddContacts()));
   }
 }

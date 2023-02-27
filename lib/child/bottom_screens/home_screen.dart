@@ -15,7 +15,8 @@ class _homeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Surakshya')),
+      // appBar:
+      //     AppBar( title: Text('Surakshya')),
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(8.0),

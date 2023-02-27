@@ -21,6 +21,8 @@ class _RegisterUserState extends State<RegisterUser> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   String? _selectedVal = "user";
 
   //list in dropdown
@@ -65,6 +67,7 @@ class _RegisterUserState extends State<RegisterUser> {
     // TODO: implement build
     return Scaffold(
       body: Form(
+        key: _formKey,
         child: SingleChildScrollView(
             child: Container(
                 child: Padding(
@@ -117,7 +120,7 @@ class _RegisterUserState extends State<RegisterUser> {
               textInputAction: TextInputAction.next,
               validate: (name) {
                 if (name!.isEmpty || name.length < 2) {
-                  return 'Enter a correct name';
+                  return 'Enter a name!';
                 }
                 return null;
               },
@@ -133,7 +136,7 @@ class _RegisterUserState extends State<RegisterUser> {
                 if (email!.isEmpty ||
                     email.length < 3 ||
                     !email.contains("@")) {
-                  return 'Enter correct email.';
+                  return 'Enter correct email!';
                 }
                 return null;
               },
@@ -154,6 +157,7 @@ class _RegisterUserState extends State<RegisterUser> {
                       ? Icon(Icons.visibility_off)
                       : Icon(Icons.visibility)),
               validate: (password) {
+
                 if (password!.isEmpty || password.length < 7) {
                   return 'Enter correct password.';
                 }
@@ -161,7 +165,13 @@ class _RegisterUserState extends State<RegisterUser> {
               },
             ),
             SizedBox(height: 18),
-            PrimaryButton(btnTitle: "REGISTER", onPressed: registerUser),
+            PrimaryButton(
+                btnTitle: "REGISTER",
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    registerUser();
+                  }
+                }),
             SizedBox(height: 25),
             Text(
               "Already have an account?",

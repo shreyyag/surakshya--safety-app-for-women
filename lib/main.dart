@@ -31,12 +31,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.green),
-      // home: SplashScreen(),
-      home: (JwtDecoder.isExpired(token) == false)
-          ? BottomNav(token: token)
-          : SplashScreen(),
+      home: SplashScreen(),
+      // home: (JwtDecoder.isExpired(token) == false)
+      //     ? BottomNav(token: token)
+      //     : SplashScreen(),
     );
   }
 }

@@ -49,6 +49,7 @@ dependencies:
   jwt_decoder: ^2.0.1
   redux: ^5.0.0
   flutter_redux: ^0.10.0
+  flutter_sms: ^2.3.3
   
 dev_dependencies:
   flutter_test:

@@ -24,6 +24,8 @@ class LoginOptionsState extends State<LoginOptions> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   late SharedPreferences prefs;
 
   @override
@@ -80,6 +82,7 @@ class LoginOptionsState extends State<LoginOptions> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
+          key: _formKey,
           child: Container(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -107,7 +110,7 @@ class LoginOptionsState extends State<LoginOptions> {
                   prefix: Icon(Icons.woman),
                   validate: (number) {
                     if (number!.isEmpty || number.length < 10) {
-                      return 'Enter correct number';
+                      return 'Enter correct email!';
                     }
                     return null;
                   },
@@ -128,8 +131,9 @@ class LoginOptionsState extends State<LoginOptions> {
                           ? Icon(Icons.visibility_off)
                           : Icon(Icons.visibility)),
                   validate: (password) {
-                    if (password!.isEmpty || password.length < 7) {
-                      return 'Enter correct password.';
+                    //password!.isEmpty || password.length < 7
+                    if (password!.isEmpty) {
+                      return 'Enter correct password!';
                     }
                     return null;
                   },
@@ -138,7 +142,9 @@ class LoginOptionsState extends State<LoginOptions> {
                 PrimaryButton(
                   btnTitle: "LOGIN",
                   onPressed: () {
-                    loginUser();
+                    if (_formKey.currentState!.validate()) {
+                      loginUser();
+                    }
                     // Navigator.push(context,
                     //     MaterialPageRoute(builder: (context) => BottomNav()));
                   },

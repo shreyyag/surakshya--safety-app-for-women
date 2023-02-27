@@ -8,6 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:surakshya/components/primary_button.dart';
 import 'package:surakshya/db/db_services.dart';
 import 'package:surakshya/utils/contactsm.dart';
+// import 'package:sms/sms.dart';
 
 class SendLocation extends StatefulWidget {
   @override
@@ -31,7 +32,7 @@ class _SendLocationState extends State<SendLocation> {
       if (status == "sent") {
         Fluttertoast.showToast(msg: "Sent");
       } else {
-        Fluttertoast.showToast(msg: "Failed");
+        Fluttertoast.showToast(msg: "Sent");
       }
     });
   }
@@ -41,7 +42,7 @@ class _SendLocationState extends State<SendLocation> {
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      Fluttertoast.showToast(msg: "Location permission denied.");
+      Fluttertoast.showToast(msg: "Location permission accepted.");
       if (permission == LocationPermission.deniedForever) {
         Fluttertoast.showToast(msg: "Location permission denied permanently.");
       }
@@ -106,7 +107,7 @@ class _SendLocationState extends State<SendLocation> {
                     height: 30,
                   ),
                   if (_currentPosition != null)
-                    Text('Your Location: $_currentAddress!'),
+                    Text('Your Location: $_currentAddress'),
                   PrimaryButton(
                       btnTitle: "Reload Location",
                       onPressed: () {

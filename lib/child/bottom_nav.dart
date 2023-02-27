@@ -42,6 +42,7 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("Surakshya"),automaticallyImplyLeading: false,),
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
@@ -53,11 +54,11 @@ class _BottomNavState extends State<BottomNav> {
               icon: Icon(
                 Icons.home,
               )),
-          BottomNavigationBarItem(
-              label: email,
-              icon: Icon(
-                Icons.contact_page,
-              )),
+          // BottomNavigationBarItem(
+          //     label: email,
+          //     icon: Icon(
+          //       Icons.contact_page,
+          //     )),
           BottomNavigationBarItem(
               label: 'Contacts',
               icon: Icon(
