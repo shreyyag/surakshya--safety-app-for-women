@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:surakshya/main.dart';
+import 'package:surakshya/pages/user_login.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -32,7 +32,11 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/splash.png', height: 160,width: 150,),
+            Image.asset(
+              'assets/images/splash.png',
+              height: 160,
+              width: 150,
+            ),
             Text('Surakshya',
                 style: TextStyle(
                     fontSize: 38,
@@ -40,6 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     color: Colors.white)),
           ],
         ),
-      ),);
+      ),
+    );
   }
 }
