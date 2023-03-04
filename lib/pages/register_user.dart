@@ -157,8 +157,7 @@ class _RegisterUserState extends State<RegisterUser> {
                       ? Icon(Icons.visibility_off)
                       : Icon(Icons.visibility)),
               validate: (password) {
-
-                if (password!.isEmpty || password.length < 7) {
+                if (password!.isEmpty || password.length < 6) {
                   return 'Enter correct password.';
                 }
                 return null;

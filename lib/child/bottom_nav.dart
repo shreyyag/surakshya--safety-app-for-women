@@ -5,6 +5,7 @@ import 'package:surakshya/child/bottom_screens/chat_screen.dart';
 import 'package:surakshya/child/bottom_screens/contacts_screen.dart';
 import 'package:surakshya/child/bottom_screens/home_screen.dart';
 
+import '../pages/user_login.dart';
 import 'bottom_screens/chat_start.dart';
 
 class BottomNav extends StatefulWidget {
@@ -42,7 +43,23 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Surakshya"),automaticallyImplyLeading: false,),
+      appBar: AppBar(
+        title: Text("Surakshya"),
+        automaticallyImplyLeading: false,
+        // actions: [
+        //   PopupMenuButton(
+        //     itemBuilder: (context) {
+        //       return [PopupMenuItem<int>(value: 0, child: Text("Logout"))];
+        //     },
+        //     onSelected: (value) {
+        //       if (value == 0) {
+        //         Navigator.pushReplacement(context,
+        //             MaterialPageRoute(builder: (context) => LoginOptions()));
+        //       }
+        //     },
+        //   )
+        // ],
+      ),
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,

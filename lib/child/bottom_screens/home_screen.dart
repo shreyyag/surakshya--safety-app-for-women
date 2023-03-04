@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:surakshya/homeWidgets/emergencyalarm.dart';
-
 import '../../homeWidgets/emergency.dart';
 import '../../homeWidgets/locate.dart';
 import '../../homeWidgets/sendLocation.dart';
@@ -39,7 +38,7 @@ class _homeScreenState extends State<HomeScreen> {
                 ),
               ),
               LiveSafe(),
-              SendLocation(),
+              Location(),
               EmergencyAlarm()
             ]),
           ),

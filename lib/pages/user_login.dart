@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:surakshya/admin/adminScreen.dart';
 import 'package:surakshya/components/custom_textfield.dart';
 import 'package:surakshya/components/secondary_button.dart';
 import 'package:surakshya/config.dart';
@@ -68,8 +69,11 @@ class LoginOptionsState extends State<LoginOptions> {
         } else if (userRole == "parent") {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => ParentHomePage()));
-        } else
-          () {};
+        } else {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AdminScreen()));
+        }
+        ;
       } else {
         Fluttertoast.showToast(msg: "Something went wrong!");
       }

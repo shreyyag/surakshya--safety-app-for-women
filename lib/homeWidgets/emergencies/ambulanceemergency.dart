@@ -26,10 +26,14 @@ class AmbulanceEmergency extends StatelessWidget {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                          Colors.grey,
-                          Color.fromARGB(255, 177, 174, 174),
-                          Color.fromARGB(255, 218, 213, 213),
-                          Color.fromARGB(255, 251, 248, 248),
+                          Color.fromARGB(255, 3, 106, 56),
+                          Color.fromARGB(255, 122, 189, 124),
+                          Color.fromARGB(255, 153, 218, 155),
+                          Color.fromARGB(255, 209, 246, 210),
+                          // Colors.grey,
+                          // Color.fromARGB(255, 177, 174, 174),
+                          // Color.fromARGB(255, 218, 213, 213),
+                          // Color.fromARGB(255, 251, 248, 248),
                         ])),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
