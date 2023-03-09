@@ -23,6 +23,11 @@ class _LocationState extends State<Location> {
   ///////add geolocator and geocoder
   Position? _currentPosition;
   String? _currentAddress;
+  String? _subLocatlity;
+  String? _subAdministrativeArea;
+  String? _subName;
+  String? _postalCode;
+  String? _street;
   LocationPermission? permission;
   bool _isLoading = false;
   bool _mounted = false;
@@ -146,6 +151,11 @@ class _LocationState extends State<Location> {
       } else {
         final place = placemarks[0];
         setState(() {
+          _subLocatlity = place.subLocality;
+          _subAdministrativeArea = place.subAdministrativeArea;
+          _subName = place.name;
+          _postalCode = place.postalCode;
+          _street = place.street;
           _currentAddress =
               "${place.subLocality}, ${place.subAdministrativeArea}, ${place.name}, ${place.postalCode}, ${place.street}";
         });
@@ -174,10 +184,16 @@ class _LocationState extends State<Location> {
   //     setState(() {});
   //   }
   // }
-
+  // MARK AS UNSAFE FUNCTION
   void markAsUnsafe() async {
     if (_currentAddress != null) {
-      var reqBody = {"location": _currentAddress};
+      var reqBody = {
+        "subLocatlity": _subLocatlity,
+        "subAdministrativeArea": _subAdministrativeArea,
+        "namee": _subName,
+        "postalCode": _postalCode,
+        "street": _street
+      };
       var response = await http.post(Uri.parse(markUnsafe),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(reqBody));
@@ -304,8 +320,12 @@ class _LocationState extends State<Location> {
             Expanded(
                 child: Column(children: [
               ListTile(
-                title: Text("Send Location", style: TextStyle(fontWeight: FontWeight.w500),),
-                subtitle: Text("Share Location",style: TextStyle(fontWeight: FontWeight.w600)),
+                title: Text(
+                  "Send Location",
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+                subtitle: Text("Share Location",
+                    style: TextStyle(fontWeight: FontWeight.w600)),
               ),
             ])),
             ClipRRect(
