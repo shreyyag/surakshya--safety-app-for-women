@@ -46,19 +46,19 @@ class _BottomNavState extends State<BottomNav> {
       appBar: AppBar(
         title: Text("Surakshya"),
         automaticallyImplyLeading: false,
-        // actions: [
-        //   PopupMenuButton(
-        //     itemBuilder: (context) {
-        //       return [PopupMenuItem<int>(value: 0, child: Text("Logout"))];
-        //     },
-        //     onSelected: (value) {
-        //       if (value == 0) {
-        //         Navigator.pushReplacement(context,
-        //             MaterialPageRoute(builder: (context) => LoginOptions()));
-        //       }
-        //     },
-        //   )
-        // ],
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (context) {
+              return [PopupMenuItem<int>(value: 0, child: Text("Logout"))];
+            },
+            onSelected: (value) {
+              if (value == 0) {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginOptions()));
+              }
+            },
+          )
+        ],
       ),
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(

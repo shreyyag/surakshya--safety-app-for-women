@@ -4,6 +4,7 @@ import 'package:surakshya/homeWidgets/emergencyalarm.dart';
 import '../../homeWidgets/emergency.dart';
 import '../../homeWidgets/locate.dart';
 import '../../homeWidgets/sendLocation.dart';
+import '../../homeWidgets/unsafeAreas.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -25,11 +26,12 @@ class _homeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Emergency",
+                  "Emergency Helplines",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
               Emergency(),
+              Location(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -38,8 +40,9 @@ class _homeScreenState extends State<HomeScreen> {
                 ),
               ),
               LiveSafe(),
-              Location(),
-              EmergencyAlarm()
+              UnsafeAreas(),
+              SizedBox(height: 10),
+              EmergencyAlarm(),
             ]),
           ),
         ]),

@@ -60,17 +60,17 @@ class LoginOptionsState extends State<LoginOptions> {
         Fluttertoast.showToast(msg: "Loging in");
 
         if (userRole == "user") {
-          Navigator.push(
+          Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) => BottomNav(token: myToken)));
           // Navigator.push(
           //     context, MaterialPageRoute(builder: (context) => BottomNav()));
         } else if (userRole == "parent") {
-          Navigator.push(context,
+          Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => ParentHomePage()));
         } else {
-          Navigator.push(
+          Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => AdminScreen()));
         }
         ;
