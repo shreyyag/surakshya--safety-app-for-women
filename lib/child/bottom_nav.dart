@@ -17,7 +17,7 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
-  late String email;
+  late String number;
 
   int currentIndex = 0;
 
@@ -37,7 +37,7 @@ class _BottomNavState extends State<BottomNav> {
     super.initState();
     Map<String, dynamic> jwtDecodedToken = JwtDecoder.decode(widget.token);
 
-    email = jwtDecodedToken['email'];
+    number = jwtDecodedToken['number'];
   }
 
   @override
@@ -72,7 +72,7 @@ class _BottomNavState extends State<BottomNav> {
                 Icons.home,
               )),
           // BottomNavigationBarItem(
-          //     label: email,
+          //     label: number,
           //     icon: Icon(
           //       Icons.contact_page,
           //     )),

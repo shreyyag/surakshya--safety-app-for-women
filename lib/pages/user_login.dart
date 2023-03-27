@@ -22,7 +22,7 @@ class LoginOptions extends StatefulWidget {
 class LoginOptionsState extends State<LoginOptions> {
   //defining controllers
   bool isPasswordShown = true;
-  TextEditingController emailController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -40,9 +40,10 @@ class LoginOptionsState extends State<LoginOptions> {
   }
 
   void loginUser() async {
-    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+    if (numberController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty) {
       var reqBody = {
-        "email": emailController.text,
+        "number": numberController.text,
         "password": passwordController.text,
       };
 
@@ -107,14 +108,14 @@ class LoginOptionsState extends State<LoginOptions> {
                 ),
                 SizedBox(height: 18),
                 CustomTextField(
-                  controller: emailController,
-                  hintText: "Email",
+                  controller: numberController,
+                  hintText: "Phone Number",
                   textInputAction: TextInputAction.next,
-                  keyboardtype: TextInputType.emailAddress,
+                  keyboardtype: TextInputType.number,
                   prefix: Icon(Icons.woman),
                   validate: (number) {
-                    if (number!.isEmpty || number.length < 10) {
-                      return 'Enter correct email!';
+                    if (number!.isEmpty || number.length < 10 || number.length > 10) {
+                      return 'Enter correct number!';
                     }
                     return null;
                   },

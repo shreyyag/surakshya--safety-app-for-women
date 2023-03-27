@@ -29,35 +29,35 @@ class _ContactsScreenState extends State<ContactsScreen> {
     askPermissions();
   }
 
-  String flattenPhoneNumber(String phoneStr) {
-    return phoneStr.replaceAllMapped(RegExp(r'^(\+)|\D'), (Match m) {
-      return m[0] == "+" ? "+" : "";
-    });
-  }
+  // String flattenPhoneNumber(String phoneStr) {
+  //   return phoneStr.replaceAllMapped(RegExp(r'^(\+)|\D'), (Match m) {
+  //     return m[0] == "+" ? "+" : "";
+  //   });
+  // }
 
   //function to filter contact
   filterContact() {
     List<Contact> _contacts = [];
     _contacts.addAll(contacts);
-    if (searchController.text.isNotEmpty) {
-      _contacts.retainWhere((element) {
-        String searchTerm = searchController.text.toLowerCase();
-        String searchTermFlattern = flattenPhoneNumber(searchTerm);
-        String contactName = element.displayName!.toLowerCase();
-        bool nameMatched = contactName.contains(searchTerm);
-        if (nameMatched == true) {
-          return true;
-        }
-        if (searchTermFlattern.isEmpty) {
-          return false;
-        }
-        var phone = element.phones!.firstWhere((p) {
-          String phnFlattered = flattenPhoneNumber(p.value!);
-          return phnFlattered.contains(searchTermFlattern);
-        });
-        return phone.value != null;
-      });
-    }
+    // if (searchController.text.isNotEmpty) {
+    //   _contacts.retainWhere((element) {
+    //     String searchTerm = searchController.text.toLowerCase();
+    //     // String searchTermFlattern = flattenPhoneNumber(searchTerm);
+    //     String contactName = element.displayName!.toLowerCase();
+    //     bool nameMatched = contactName.contains(searchTerm);
+    //     if (nameMatched == true) {
+    //       return true;
+    //     }
+    //     if (searchTermFlattern.isEmpty) {
+    //       return false;
+    //     }
+    //     var phone = element.phones!.firstWhere((p) {
+    //       String phnFlattered = flattenPhoneNumber(p.value!);
+    //       return phnFlattered.contains(searchTermFlattern);
+    //     });
+    //     return phone.value != null;
+    //   });
+    // }
     setState(() {
       filteredContacts = _contacts;
     });
@@ -114,16 +114,16 @@ class _ContactsScreenState extends State<ContactsScreen> {
             : SafeArea(
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        autofocus: true,
-                        controller: searchController,
-                        decoration: InputDecoration(
-                            labelText: "Search contact",
-                            prefixIcon: Icon(Icons.search)),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: TextField(
+                    //     autofocus: true,
+                    //     controller: searchController,
+                    //     decoration: InputDecoration(
+                    //         labelText: "Search contact",
+                    //         prefixIcon: Icon(Icons.search)),
+                    //   ),
+                    // ),
                     listItemExist == true
                         ? Expanded(
                             child: ListView.builder(

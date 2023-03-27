@@ -18,7 +18,7 @@ class _RegisterUserState extends State<RegisterUser> {
   bool isPasswordShown = true;
   //textfield controllers
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController numberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -35,12 +35,12 @@ class _RegisterUserState extends State<RegisterUser> {
   //function to register user
   void registerUser() async {
     if (nameController.text.isNotEmpty &&
-        emailController.text.isNotEmpty &&
+        numberController.text.isNotEmpty &&
         passwordController.text.isNotEmpty &&
         _selectedVal == _selectedVal) {
       var regBody = {
         "name": nameController.text,
-        "email": emailController.text,
+        "number": numberController.text,
         "password": passwordController.text,
         "role": _selectedVal
       };
@@ -127,7 +127,7 @@ class _RegisterUserState extends State<RegisterUser> {
             ),
             SizedBox(height: 18),
             CustomTextField(
-              controller: emailController,
+              controller: numberController,
               hintText: "Email",
               textInputAction: TextInputAction.next,
               keyboardtype: TextInputType.emailAddress,

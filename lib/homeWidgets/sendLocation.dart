@@ -23,7 +23,7 @@ class _LocationState extends State<Location> {
   ///////add geolocator and geocoder
   Position? _currentPosition;
   String? _currentAddress;
-  String? _subLocatlity;
+  String? _subLocality;
   String? _subAdministrativeArea;
   String? _subName;
   String? _postalCode;
@@ -151,7 +151,7 @@ class _LocationState extends State<Location> {
       } else {
         final place = placemarks[0];
         setState(() {
-          _subLocatlity = place.subLocality;
+          _subLocality = place.subLocality;
           _subAdministrativeArea = place.subAdministrativeArea;
           _subName = place.name;
           _postalCode = place.postalCode;
@@ -188,7 +188,7 @@ class _LocationState extends State<Location> {
   void markAsUnsafe() async {
     if (_currentAddress != null) {
       var reqBody = {
-        "subLocatlity": _subLocatlity,
+        "subLocality": _subLocality,
         "subAdministrativeArea": _subAdministrativeArea,
         "namee": _subName,
         "postalCode": _postalCode,
