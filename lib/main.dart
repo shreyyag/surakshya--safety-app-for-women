@@ -4,12 +4,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:surakshya/components/custom_textfield.dart';
+import 'package:surakshya/components/flutter_bg_services.dart';
 import 'package:surakshya/components/secondary_button.dart';
 import 'package:surakshya/config.dart';
 import 'package:surakshya/pages/register_user.dart';
 import 'package:surakshya/pages/splash_screen.dart';
 import 'package:surakshya/pages/user_login.dart';
-import 'package:surakshya/parent/homeParent.dart';
 import 'child/bottom_nav.dart';
 import 'package:http/http.dart' as http;
 import 'components/primary_button.dart';
@@ -18,6 +18,7 @@ import 'child/bottom_screens/home_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  // await initializeService();
   runApp(MyApp(
     token: prefs.getString('token'),
   ));

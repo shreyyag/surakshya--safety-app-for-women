@@ -9,7 +9,7 @@ import 'package:surakshya/components/secondary_button.dart';
 import 'package:surakshya/config.dart';
 import 'package:surakshya/pages/register_user.dart';
 import 'package:surakshya/pages/splash_screen.dart';
-import 'package:surakshya/parent/homeParent.dart';
+
 import '../child/bottom_nav.dart';
 import '../components/primary_button.dart';
 import 'package:http/http.dart' as http;
@@ -67,9 +67,6 @@ class LoginOptionsState extends State<LoginOptions> {
                   builder: (context) => BottomNav(token: myToken)));
           // Navigator.push(
           //     context, MaterialPageRoute(builder: (context) => BottomNav()));
-        } else if (userRole == "parent") {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => ParentHomePage()));
         } else {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => AdminScreen()));
@@ -114,7 +111,9 @@ class LoginOptionsState extends State<LoginOptions> {
                   keyboardtype: TextInputType.number,
                   prefix: Icon(Icons.woman),
                   validate: (number) {
-                    if (number!.isEmpty || number.length < 10 || number.length > 10) {
+                    if (number!.isEmpty ||
+                        number.length < 10 ||
+                        number.length > 10) {
                       return 'Enter correct number!';
                     }
                     return null;
