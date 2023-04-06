@@ -106,36 +106,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
     });
   }
 
-  // void checkNumber() async {
-  //   if (// number exists) {
-  //     var reqBody = {
-  //       "number": numberController.text,
-  //     };
-
-  //     var response = await http.post(Uri.parse(numberExists),
-  //         headers: {"Content-Type": "application/json"},
-  //         body: jsonEncode(reqBody));
-  //     var jsonResponse = jsonDecode(response.body);
-  //     //Saving token in shared preference
-  //     if (jsonResponse['status']) {
-  //       var myToken = jsonResponse['token'];
-  //       var userRole = jsonResponse['role'];
-
-  //       // prefs.setString("token", myToken);
-  //       // prefs.setString("role", userRole);
-  //       Fluttertoast.showToast(msg: "Loging in");
-
-  //       if (jsonResponse) {
-  //         Fluttertoast.showToast(msg: "Number exists in db.");
-  //       } else {
-  //         Fluttertoast.showToast(msg: "Number doesn't exist in db.");
-  //       }
-  //     } else {
-  //       Fluttertoast.showToast(msg: "Something went wrong!");
-  //     }
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     //search controller

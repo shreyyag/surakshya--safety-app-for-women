@@ -9,34 +9,52 @@ class ChatStart extends StatefulWidget {
 }
 
 class _ChatStartState extends State<ChatStart> {
-  TextEditingController msgInputController = TextEditingController();
-  // final store = new Store(reducer,
-  //  initialState: ChatState(
-
-  //  ))
-
-  // void sendMessage() {}
+  List<String> messages = []; // list to hold the chat messages
+  TextEditingController _messageController =
+      TextEditingController(); // controller to handle user input
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Select Guardian"),
-        ),
-        body: StreamBuilder(
-          // stream: ,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return ListView.builder(
-                itemCount: 1,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: ListTile(),
-                    ),
-                  );
-                });
-          },
-        ));
+      appBar: AppBar(
+        title: Text("Chat"),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: messages.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  title: Text(messages[index]),
+                );
+              },
+            ),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _messageController,
+                  decoration: InputDecoration(
+                    hintText: "Enter message",
+                  ),
+                ),
+              ),
+              IconButton(
+                icon: Icon(Icons.send),
+                onPressed: () {
+                  // add the message to the list and clear the text field
+                  setState(() {
+                    messages.add(_messageController.text);
+                    _messageController.clear();
+                  });
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
