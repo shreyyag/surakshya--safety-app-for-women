@@ -14,12 +14,12 @@ import 'package:surakshya/db/db_services.dart';
 import 'package:surakshya/utils/contactsm.dart';
 // import 'package:sms/sms.dart';
 
-class Location extends StatefulWidget {
+class LocationSend extends StatefulWidget {
   @override
-  State<Location> createState() => _LocationState();
+  State<LocationSend> createState() => _LocationState();
 }
 
-class _LocationState extends State<Location> {
+class _LocationState extends State<LocationSend> {
   ///////add geolocator and geocoder
   Position? _currentPosition;
   String? _currentAddress;
@@ -60,27 +60,6 @@ class _LocationState extends State<Location> {
     final status = await Permission.sms.status;
     return status.isGranted;
   }
-  //Not working
-  //background_sms dependency add
-  // Future<void> _sendSms(String phoneNumber, String message,
-  //     {int? simSlot}) async {
-  //   try {
-  //     final status = await BackgroundSms.sendMessage(
-  //       phoneNumber: phoneNumber,
-  //       message: message,
-  //       simSlot: simSlot,
-  //     );
-  //     if (status == SmsStatus.sent) {
-  //       Fluttertoast.showToast(msg: "Sent");
-  //     } else {
-  //       Fluttertoast.showToast(msg: "Sending!");
-  //     }
-  //   } on Exception catch (e) {
-  //     Fluttertoast.showToast(msg: "Failed to send message: ${e.toString()}");
-  //   }
-  // }
-
-// ...
 
   Future<void> _sendSms(List<String> phoneNumbers, String messageBody) async {
     try {
