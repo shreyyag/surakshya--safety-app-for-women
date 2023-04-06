@@ -128,15 +128,15 @@ class _RegisterUserState extends State<RegisterUser> {
             SizedBox(height: 18),
             CustomTextField(
               controller: numberController,
-              hintText: "Email",
+              hintText: "Number",
               textInputAction: TextInputAction.next,
               keyboardtype: TextInputType.emailAddress,
-              prefix: Icon(Icons.mail),
-              validate: (email) {
-                if (email!.isEmpty ||
-                    email.length < 3 ||
-                    !email.contains("@")) {
-                  return 'Enter correct email!';
+              prefix: Icon(Icons.phone),
+              validate: (number) {
+                if (number!.isEmpty ||
+                    number.length < 10 ||
+                    number.length > 10) {
+                  return 'Enter correct number';
                 }
                 return null;
               },

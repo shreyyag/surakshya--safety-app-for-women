@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -5,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:surakshya/child/bottom_screens/add_contacts.dart';
 import 'package:surakshya/db/db_services.dart';
 
+import '../../config.dart';
 import '../../utils/constants.dart';
 import '../../utils/contactsm.dart';
 
@@ -102,6 +105,36 @@ class _ContactsScreenState extends State<ContactsScreen> {
       contacts = _contacts;
     });
   }
+
+  // void checkNumber() async {
+  //   if (// number exists) {
+  //     var reqBody = {
+  //       "number": numberController.text,
+  //     };
+
+  //     var response = await http.post(Uri.parse(numberExists),
+  //         headers: {"Content-Type": "application/json"},
+  //         body: jsonEncode(reqBody));
+  //     var jsonResponse = jsonDecode(response.body);
+  //     //Saving token in shared preference
+  //     if (jsonResponse['status']) {
+  //       var myToken = jsonResponse['token'];
+  //       var userRole = jsonResponse['role'];
+
+  //       // prefs.setString("token", myToken);
+  //       // prefs.setString("role", userRole);
+  //       Fluttertoast.showToast(msg: "Loging in");
+
+  //       if (jsonResponse) {
+  //         Fluttertoast.showToast(msg: "Number exists in db.");
+  //       } else {
+  //         Fluttertoast.showToast(msg: "Number doesn't exist in db.");
+  //       }
+  //     } else {
+  //       Fluttertoast.showToast(msg: "Something went wrong!");
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
